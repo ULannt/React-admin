@@ -1,5 +1,5 @@
-import type { ReactElement } from "react";
-import type { RouteObject } from "react-router-dom";
+import type { ReactElement } from "react"
+import type { RouteObject } from "react-router-dom"
 
 export interface XMeta {
   icon?: React.ReactNode;
@@ -7,9 +7,9 @@ export interface XMeta {
 }
 
 export interface XRoute extends RouteObject {
-  meta?: XMeta;
-  children?: XRoutes;
-  hidden?: boolean;
+  meta?: XMeta
+  children?: XRoutes
+  hidden?: boolean
 }
 
-export type XRoutes = XRoute[];
+export type XRoutes = XRoute[]

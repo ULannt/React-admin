@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
+import React, { useEffect } from "react"
+import NProgress from "nprogress"
+import "nprogress/nprogress.css"
 
 NProgress.configure({
-  showSpinner: false,
-});
+  showSpinner: false
+})
 
 function Loading() {
-  NProgress.start();
-
+  NProgress.start()
+  
   useEffect(() => {
-    NProgress.done();
-  }, []);
-
-  return <></>;
+    NProgress.done()
+  }, [])
+  
+  return <></>
 }
 
-export default Loading;
+export default Loading

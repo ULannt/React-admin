@@ -1,5 +1,5 @@
 const route = {
-  dashboard: "首页",
-};
+  dashboard: "首页"
+}
 
-export default route;
+export default route

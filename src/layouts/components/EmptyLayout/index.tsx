@@ -1,9 +1,9 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import withAuthorization from "@/components/withAuthorization";
+import React from "react"
+import { Outlet } from "react-router-dom"
+import withAuthorization from "@/components/withAuthorization"
 
 function EmptyLayout() {
-	return <Outlet />;
+  return <Outlet/>
 }
 
-export default withAuthorization(EmptyLayout);
+export default withAuthorization(EmptyLayout)

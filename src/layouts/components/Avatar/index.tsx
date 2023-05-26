@@ -1,25 +1,25 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, Dropdown, Button, MenuProps } from "antd";
-import { useTranslation } from "react-i18next";
+import React from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { Menu, Dropdown, Button, MenuProps } from "antd"
+import { useTranslation } from "react-i18next"
 
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { logoutAsync, selectUser } from "@pages/login/slice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks"
+import { logoutAsync, selectUser } from "@pages/login/slice"
 
-import "./index.less";
+import "./index.less"
 
 function AvatarComponent() {
-  const navigator = useNavigate();
-  const dispatch = useAppDispatch();
-  const user = useAppSelector(selectUser);
-
+  const navigator = useNavigate()
+  const dispatch = useAppDispatch()
+  const user = useAppSelector(selectUser)
+  
   const handleLogout = async () => {
-    await dispatch(logoutAsync());
-    navigator("/login");
-  };
-
-  const { t } = useTranslation("app");
-
+    await dispatch(logoutAsync())
+    navigator("/login")
+  }
+  
+  const { t } = useTranslation("app")
+  
   /* const menu: any = (
     <Menu>
       <Menu.Item key="0">
@@ -30,19 +30,19 @@ function AvatarComponent() {
       </Menu.Item>
     </Menu>
   ); */
-
+  
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label: <Link to="/syt/dashboard">{t("goHomeBtnText")}</Link>,
+      label: <Link to="/syt/dashboard">{t("goHomeBtnText")}</Link>
     },
     {
       key: "2",
-      label: <div onClick={handleLogout}>{t("logoutBtnText")}</div>,
-    },
-  ];
-
-  /* 
+      label: <div onClick={handleLogout}>{t("logoutBtnText")}</div>
+    }
+  ]
+  
+  /*
   
     <Dropdown menu={{ menu }}>
       <Button className="layout-dropdown-link" type="link">
@@ -53,10 +53,10 @@ function AvatarComponent() {
   return (
     <Dropdown menu={{ items }}>
       <Button className="layout-dropdown-link" type="link">
-        <img className="layout-avatar" src={user.avatar} alt="avatar" />
+        <img className="layout-avatar" src={user.avatar} alt="avatar"/>
       </Button>
     </Dropdown>
-  );
+  )
 }
 
-export default AvatarComponent;
+export default AvatarComponent

@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next"
 
 /*
   1. 使用组件
@@ -27,8 +27,9 @@ import { useTranslation } from "react-i18next";
 interface TranslationProps {
   children: string;
 }
+
 export default function Translation({ children }: TranslationProps) {
   // children 代表组件标签包裹的内容
-  const { t } = useTranslation();
-  return <span>{t(children)}</span>;
+  const { t } = useTranslation()
+  return <span>{t(children)}</span>
 }

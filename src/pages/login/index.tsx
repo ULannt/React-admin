@@ -1,24 +1,24 @@
-import React from "react";
-import { Form, Input, Button } from "antd";
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import { Form, Input, Button } from "antd"
+import { useNavigate } from "react-router-dom"
 // redux相关
-import { useAppDispatch } from "@/app/hooks";
-import { loginAsync } from "./slice";
+import { useAppDispatch } from "@/app/hooks"
+import { loginAsync } from "./slice"
 
-import "./index.less";
+import "./index.less"
 
 function Login() {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  
   const onFinish = async (values: any) => {
-    const res = await dispatch(loginAsync(values));
-
+    const res = await dispatch(loginAsync(values))
+    
     if (res.type === "user/login/fulfilled") {
-      navigate("/syt/dashboard");
+      navigate("/syt/dashboard")
     }
-  };
-
+  }
+  
   return (
     <div className="login">
       <div className="login-container">
@@ -32,25 +32,25 @@ function Login() {
           autoComplete="off"
         >
           <Form.Item label="用户名" name="username" rules={[{ required: true, message: "请输入用户名!" }]}>
-            <Input />
+            <Input/>
           </Form.Item>
-
+          
           <Form.Item label="密码" name="password" rules={[{ required: true, message: "请输入用户名密码!" }]}>
-            <Input.Password />
+            <Input.Password/>
           </Form.Item>
-
+          
           <Form.Item wrapperCol={{ span: 24 }}>
             <Button type="primary" htmlType="submit" className="login-btn">
               登录
             </Button>
-            <br />
-            <br />
+            <br/>
+            <br/>
             <p>用户名:admin 密码:111111</p>
           </Form.Item>
         </Form>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login

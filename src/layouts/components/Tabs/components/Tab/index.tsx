@@ -1,19 +1,22 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { CloseOutlined } from "@ant-design/icons";
-import { Dropdown, Menu } from "antd";
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { CloseOutlined } from "@ant-design/icons"
+import { Dropdown, Menu } from "antd"
 
-import { TabType } from "../../types";
+import { TabType } from "../../types"
 
-import "./index.less";
+import "./index.less"
 
 interface TabProps {
   tab: TabType;
   active: boolean;
   index: number;
   length: number;
+  
   onClose(index: number): void;
+  
   onCloseOthers(index: number): void;
+  
   onCloseAll(index: number): void;
 }
 
@@ -24,22 +27,22 @@ function Tab({
   length,
   onClose,
   onCloseOthers,
-  onCloseAll,
+  onCloseAll
 }: TabProps) {
   const handleMenuClick = ({ key }: any) => {
     switch (key) {
       case "close":
-        onClose(index);
-        return;
+        onClose(index)
+        return
       case "closeOthers":
-        onCloseOthers(index);
-        return;
+        onCloseOthers(index)
+        return
       case "closeAll":
-        onCloseAll(index);
-        return;
+        onCloseAll(index)
+        return
     }
-  };
-
+  }
+  
   const menu: any = (
     <Menu
       className="context-menu"
@@ -48,30 +51,30 @@ function Tab({
         {
           label: "关闭",
           key: "close",
-          disabled: index === 0,
+          disabled: index === 0
         },
         {
           label: "关闭其他",
           key: "closeOthers",
-          disabled: length === 1 || (length === 2 && index !== 0),
+          disabled: length === 1 || (length === 2 && index !== 0)
         },
         {
           label: "全部关闭",
           key: "closeAll",
-          disabled: length <= 1,
-        },
+          disabled: length <= 1
+        }
       ]}
     />
-  );
-
-  const [isHover, setIsHover] = useState(false);
-
+  )
+  
+  const [isHover, setIsHover] = useState(false)
+  
   const handleHover = (isHover: boolean) => {
     return () => {
-      setIsHover(isHover);
-    };
-  };
-
+      setIsHover(isHover)
+    }
+  }
+  
   return (
     <Dropdown menu={menu} trigger={["contextMenu"]}>
       <div
@@ -83,11 +86,11 @@ function Tab({
           {tab.title}
         </Link>
         {tab.closable && (isHover || active) && (
-          <CloseOutlined className="tab-close" onClick={() => onClose(index)} />
+          <CloseOutlined className="tab-close" onClick={() => onClose(index)}/>
         )}
       </div>
     </Dropdown>
-  );
+  )
 }
 
-export default Tab;
+export default Tab

@@ -1,5 +1,5 @@
 const route = {
-  dashboard: "Dashboard",
-};
+  dashboard: "Dashboard"
+}
 
-export default route;
+export default route
