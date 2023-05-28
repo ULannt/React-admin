@@ -4,29 +4,31 @@
 
 `@/routes/index.tsx`
 
-```json
-"/"     ->  redirect  ->  "/login": "登录界面",
-"/syt"  ->  redirect  ->  "/syt/dashboard": "主页",
-"*"     ->  redirect  ->  "/404": "错误界面"
+```
+"/"     ->  redirect  ->  "/login": 登录界面,
+"/syt"  ->  redirect  ->  "/syt/dashboard": 主页,
+"*"     ->  redirect  ->  "/404": 错误界面
 ```
 
 ## 布局分析
 
 `@layouts/components`
 
-```json
+```
 login
 
-? <SideBar>: "侧边栏"{
-<Menu>: "菜单"
-},
-<Layout>: "主页容器"{
-Header: "头部"{
-<Avatar>: "头像"
-},
-<Tabs>: "导航栏",
-Content: <Outlet>
-}: <EmptyLayout>: "登录界面容器"
+  ? <SideBar>: 侧边栏{
+      <Menu>: 菜单
+    },
+    <Layout>: 主页容器{
+      Header: 头部{
+        <Avatar>: 头像
+      },
+      <Tabs>: 导航栏,
+        Content: <Outlet>
+    }
+
+	: <EmptyLayout>: 登录界面容器
 ```
 
 ## 网络请求
