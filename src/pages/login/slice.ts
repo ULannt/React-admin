@@ -3,8 +3,8 @@ import { RootState } from "@/app/store"
 import { reqLogin, reqGetUserInfo, reqLogout } from "@api/user"
 
 export interface LoginParams {
-  username: string;
-  password: string;
+  username: string
+  password: string
 }
 
 // 1. 定义初始化状态
@@ -23,6 +23,7 @@ export const loginAsync = createAsyncThunk(
     return reqLogin(username, password)
   }
 )
+
 // 获取用户数据
 export const getUserInfoAsync = createAsyncThunk(
   "user/getUserInfoAsync",
@@ -30,6 +31,7 @@ export const getUserInfoAsync = createAsyncThunk(
     return reqGetUserInfo()
   }
 )
+
 // 登出
 export const logoutAsync = createAsyncThunk("user/logoutAsync", () => {
   return reqLogout()
@@ -40,14 +42,14 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {},
-  extraReducers: (builder) =>
+  extraReducers: builder =>
     builder
       .addCase(loginAsync.fulfilled, (state, action) => {
         // action.payload就是上一步结果值
         // console.log(action.payload, "action");
-        
+
         const token = action.payload
-        
+
         // 将token存储在redux中
         state.token = token
         // 将token存储在localStorage中
@@ -59,7 +61,7 @@ const userSlice = createSlice({
         state.name = name
         state.avatar = avatar
       })
-      .addCase(logoutAsync.fulfilled, (state) => {
+      .addCase(logoutAsync.fulfilled, state => {
         state.token = ""
         state.name = ""
         state.avatar = ""
