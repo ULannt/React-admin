@@ -15,7 +15,7 @@ const initialState = {
   avatar: "" // 用户头像
 }
 
-// 异步action
+// 异步 action
 // 登录
 export const loginAsync = createAsyncThunk(
   "user/loginAsync",
@@ -47,9 +47,9 @@ const userSlice = createSlice({
       .addCase(loginAsync.fulfilled, (state, action) => {
         // action.payload就是上一步结果值
         // console.log(action.payload, "action");
-
+        
         const token = action.payload
-
+        
         // 将token存储在redux中
         state.token = token
         // 将token存储在localStorage中

@@ -54,7 +54,6 @@ const routes: XRoutes = [
       }
     ]
   },
-  
   {
     path: "/404",
     element: load(NotFound)

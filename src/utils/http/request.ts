@@ -16,7 +16,7 @@ const request = axios.create({
 })
 
 // 请求拦截器函数：发送请求之前触发的函数
-request.interceptors.request.use((config) => {
+request.interceptors.request.use(config => {
   // token从redux中读取
   // 不是组件，不能使用hooks函数读取
   // 使用最原始读取redux数据的方法
@@ -32,7 +32,7 @@ request.interceptors.request.use((config) => {
 
 // 响应拦截器函数：得到响应之后触发的函数
 request.interceptors.response.use(
-  (response) => {
+  response => {
     // 请求成功
     if (response.data.code === 200) {
       // 说明功能成功，返回成功的数据
@@ -43,7 +43,7 @@ request.interceptors.response.use(
       return Promise.reject(response.data.message) // 外面触发失败的流程
     }
   },
-  (error) => {
+  error => {
     // 请求失败
     message.error(error)
     return Promise.reject(error)
