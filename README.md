@@ -28,7 +28,7 @@ login
         Content: <Outlet>
     }
 
-	: <EmptyLayout>: 登录界面容器
+  : <EmptyLayout>: 登录界面容器
 ```
 
 ## 网络请求
