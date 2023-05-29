@@ -1,5 +1,5 @@
 import { Form, Input, Button, Table } from "antd"
-import { SearchOutlined } from "@ant-design/icons"
+import { SearchOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"
 
 export default function HospitalSet() {
   const dataSource = [
@@ -77,34 +77,53 @@ export default function HospitalSet() {
   
   const columns = [
     {
-      title: "序号"
+      title: "序号",
+      render(_: any, $: any, c: number) {
+        return c + 1
+      },
+      key: "id"
     },
     {
       title: "医院名称",
-      dataIndex: "hosname"
+      dataIndex: "hosname",
+      key: "hosname"
     },
     {
       title: "医院编号",
-      dataIndex: "hoscode"
+      dataIndex: "hoscode",
+      key: "hoscode"
     },
     {
       title: "api基础路径",
-      dataIndex: "apiUrl"
+      dataIndex: "apiUrl",
+      key: "apiUrl"
     },
     {
       title: "签名",
-      dataIndex: "signKey"
+      dataIndex: "signKey",
+      key: "signKey"
     },
     {
       title: "联系人姓名",
-      dataIndex: "contactsName"
+      dataIndex: "contactsName",
+      key: "contactsName"
     },
     {
       title: "联系人手机",
-      dataIndex: "contactsPhone"
+      dataIndex: "contactsPhone",
+      key: "contactsPhone"
     },
     {
-      title: "操作"
+      title: "操作",
+      render() {
+        return (
+          <div>
+            <Button icon={<EditOutlined/>} type="primary"/>
+            <Button icon={<DeleteOutlined/>} type="primary" danger/>
+          </div>
+        )
+      },
+      key: "id"
     }
   ]
   
