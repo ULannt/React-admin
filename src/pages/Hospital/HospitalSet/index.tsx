@@ -1,8 +1,8 @@
 import { Form, Input, Button, Table } from "antd"
 import { SearchOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"
 import { useEffect, useState } from "react"
-import { reqHosListInfo } from "@api/hos"
-import type { typeReqHosInfoParams, typeHosList } from "@api/hos/model/hosTypes"
+import { reqHosListInfo } from "@api/Hos"
+import type { typeReqHosInfoParams, typeHosList } from "@api/Hos/model/hosTypes"
 
 export default function HospitalSet() {
   // 数据1: 请求医院分页列表函数 reqHosListInfo 的参数
