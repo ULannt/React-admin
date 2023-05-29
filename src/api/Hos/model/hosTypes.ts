@@ -2,8 +2,8 @@
 export interface typeReqHosInfoParams {
   page: number
   limit: number
-  hosname: string
-  hoscode: string
+  hosname?: string
+  hoscode?: string
 }
 
 // 医院列表的每一项的类型
@@ -21,10 +21,10 @@ export interface typeHosListItem {
   status: number
 }
 
-// 医院列表的类型 [{}, {}, {}]
+// 医院列表的类型 [{ id, hosname, hoscode ... }, {}, {} ...]
 export type typeHosList = typeHosListItem[]
 
-// 医院列表信息
+// 医院所有信息(包括医院列表)
 export interface typeHosListInfo {
   records: typeHosList,
   total: number,

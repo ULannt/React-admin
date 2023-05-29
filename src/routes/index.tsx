@@ -1,14 +1,10 @@
 // src/routes/index.tsx
-import React, { lazy, Suspense, FC } from "react"
+import { lazy, Suspense, FC } from "react"
 import { useRoutes, Navigate } from "react-router-dom"
 import { HomeOutlined, TeamOutlined } from "@ant-design/icons"
 import type { XRoutes } from "./types"
 
-import {
-  Layout,
-  EmptyLayout
-  // CompLayout
-} from "../layouts"
+import { Layout, EmptyLayout } from "@/layouts"
 import Loading from "@comps/Loading"
 
 import Translation from "@comps/Translation"
