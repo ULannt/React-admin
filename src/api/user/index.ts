@@ -1,5 +1,5 @@
-import {request} from "@/utils/http"
-import type {GetInfoResponse, LoginResponse} from "./model/userTypes"
+import { request } from "@/utils/http"
+import type { GetInfoResponse, LoginResponse } from "./model/userTypes"
 
 // 登录
 export const reqLogin = (username: string, password: string) => {

@@ -3,4 +3,4 @@ export interface GetInfoResponse {
   avatar: string;
 }
 
-export type LoginResponse = string;
+export type LoginResponse = string

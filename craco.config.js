@@ -1,5 +1,5 @@
-const CracoLessPlugin = require("craco-less");
-const CracoAlias = require("craco-alias");
+const CracoLessPlugin = require("craco-less")
+const CracoAlias = require("craco-alias")
 
 module.exports = {
   plugins: [
@@ -10,10 +10,10 @@ module.exports = {
         lessLoaderOptions: {
           lessOptions: {
             modifyVars: { "@primary-color": "#1DA57A" },
-            javascriptEnabled: true,
-          },
-        },
-      },
+            javascriptEnabled: true
+          }
+        }
+      }
     },
     // 路径别名
     {
@@ -21,9 +21,9 @@ module.exports = {
       options: {
         source: "tsconfig",
         baseUrl: "./",
-        tsConfigPath: "./tsconfig.extend.json",
-      },
-    },
+        tsConfigPath: "./tsconfig.extend.json"
+      }
+    }
   ],
   // 开发服务器配置
   devServer: {
@@ -36,9 +36,18 @@ module.exports = {
         changeOrigin: true, // 允许跨域
         pathRewrite: {
           // 路径重写
-          "^/dev-api": "",
-        },
+          "^/dev-api": ""
+        }
       },
-    },
-  },
-};
+      "/hospital": {
+        // 需要转发的请求前缀
+        target: "http://139.198.34.216:8201", // 目标服务器地址
+        changeOrigin: true, // 允许跨域
+        pathRewrite: {
+          // 路径重写
+          "^/hospital": ""
+        }
+      }
+    }
+  }
+}

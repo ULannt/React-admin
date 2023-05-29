@@ -1,129 +1,75 @@
 import { Form, Input, Button, Table } from "antd"
 import { SearchOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"
+import { useEffect, useState } from "react"
+import { reqHosListInfo } from "@api/hos"
+import type { typeReqHosInfoParams, typeHosList } from "@api/hos/model/hosTypes"
 
 export default function HospitalSet() {
-  const dataSource = [
-    {
-      "id": 10,
-      "createTime": "2022-04-11 16:41:18",
-      "updateTime": "2022-06-15 08:22:30",
-      "isDeleted": 0,
-      "param": {},
-      "hosname": "北京大学深圳医院",
-      "hoscode": "2022222",
-      "apiUrl": "http://api.bjdxszyy.cn",
-      "signKey": "62b84e910bd6d7b67157aed66e7aa866",
-      "contactsName": "隔壁老王",
-      "contactsPhone": "13000000000",
-      "status": 0
-    },
-    {
-      "id": 9,
-      "createTime": "2022-01-18 10:53:14",
-      "updateTime": "2022-06-15 08:22:29",
-      "isDeleted": 0,
-      "param": {},
-      "hosname": "民航总医院",
-      "hoscode": "1000_8",
-      "apiUrl": "http://api.mzyy.cn",
-      "signKey": "6f8006485dca34cd5849b724981dbe99",
-      "contactsName": "周全",
-      "contactsPhone": "15745634567",
-      "status": 0
-    },
-    {
-      "id": 8,
-      "createTime": "2022-01-18 10:53:10",
-      "updateTime": "2022-06-15 08:22:27",
-      "isDeleted": 0,
-      "param": {},
-      "hosname": "北京市海淀区同步中医骨科医院",
-      "hoscode": "1000_7",
-      "apiUrl": "http://api.hdqtb.cn",
-      "signKey": "6f8006485dca34cd5849b724981dbe99",
-      "contactsName": "王伟",
-      "contactsPhone": "13134564567",
-      "status": 0
-    },
-    {
-      "id": 7,
-      "createTime": "2022-01-18 10:52:57",
-      "updateTime": "2022-06-15 08:22:26",
-      "isDeleted": 0,
-      "param": {},
-      "hosname": "中国医学科学院阜外医院",
-      "hoscode": "1000_6",
-      "apiUrl": "http://api.zgykxy.cn",
-      "signKey": "6f8006485dca34cd5849b724981dbe99",
-      "contactsName": "钱已",
-      "contactsPhone": "16709807654",
-      "status": 0
-    },
-    {
-      "id": 6,
-      "createTime": "2022-01-18 10:52:48",
-      "updateTime": "2022-06-15 08:22:25",
-      "isDeleted": 0,
-      "param": {},
-      "hosname": "中国医学科学院肿瘤医院",
-      "hoscode": "1000_5",
-      "apiUrl": "http://api.zgzl.cn",
-      "signKey": "6f8006485dca34cd5849b724981dbe99",
-      "contactsName": "米话",
-      "contactsPhone": "18089078907",
-      "status": 0
+  // 数据1: reqHosListInfo 请求参数
+  const [reqParams, setReqParams] = useState<typeReqHosInfoParams>({
+    page: 1,
+    limit: 3,
+    hosname: "",
+    hoscode: ""
+  })
+  
+  // 数据2: 医院列表数据
+  const [hosList, setHosList] = useState<typeHosList>([])
+  
+  // 数据3: 是否加载中
+  const [loading, setLoading] = useState(false)
+  
+  // 数据4: 列表数据总条数
+  const [total, setTotal] = useState(0)
+  
+  useEffect(() => {
+    const getHosListInfo = async () => {
+      setLoading(true)
+      
+      const result = await reqHosListInfo(reqParams)
+      
+      setLoading(false)
+      
+      setHosList(result.records)
+      setTotal(result.total)
     }
-  ]
+    getHosListInfo()
+  }, [reqParams])
   
   const columns = [
     {
       title: "序号",
-      render(_: any, $: any, c: number) {
-        return c + 1
-      },
-      key: "id"
+      render: (_: any, $: any, c: number) => c + 1
     },
     {
       title: "医院名称",
-      dataIndex: "hosname",
-      key: "hosname"
+      dataIndex: "hosname"
     },
     {
       title: "医院编号",
-      dataIndex: "hoscode",
-      key: "hoscode"
+      dataIndex: "hoscode"
     },
     {
       title: "api基础路径",
-      dataIndex: "apiUrl",
-      key: "apiUrl"
-    },
-    {
-      title: "签名",
-      dataIndex: "signKey",
-      key: "signKey"
+      dataIndex: "apiUrl"
     },
     {
       title: "联系人姓名",
-      dataIndex: "contactsName",
-      key: "contactsName"
+      dataIndex: "contactsName"
     },
     {
       title: "联系人手机",
-      dataIndex: "contactsPhone",
-      key: "contactsPhone"
+      dataIndex: "contactsPhone"
     },
     {
       title: "操作",
-      render() {
-        return (
-          <div>
-            <Button icon={<EditOutlined/>} type="primary"/>
-            <Button icon={<DeleteOutlined/>} type="primary" danger/>
-          </div>
-        )
-      },
-      key: "id"
+      render: () => (
+        <div>
+          <Button icon={<EditOutlined/>} type="primary"/>
+          <Button icon={<DeleteOutlined/>} type="primary" danger/>
+        </div>
+      ),
+      fixed: "right" as "right"
     }
   ]
   
@@ -149,7 +95,24 @@ export default function HospitalSet() {
         <Button type="primary" danger>删除</Button>
       </div>
       
-      <Table dataSource={dataSource} columns={columns} bordered rowSelection={{}}/>
+      <Table
+        dataSource={hosList}
+        columns={columns}
+        bordered
+        rowKey={row => row.id}
+        rowSelection={{}}
+        scroll={{ x: 1500 }}
+        pagination={{
+          current: reqParams.page,
+          pageSize: reqParams.limit,
+          pageSizeOptions: [3, 6, 9],
+          showQuickJumper: true,
+          showSizeChanger: true,
+          total: total,
+          onChange: (page: number, limit: number) => setReqParams({ ...reqParams, page, limit })
+        }}
+        loading={loading}
+      />
     </div>
   )
 }
