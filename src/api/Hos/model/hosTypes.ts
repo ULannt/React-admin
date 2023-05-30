@@ -35,3 +35,12 @@ export interface typeHosListInfo {
   searchCount: boolean,
   pages: number
 }
+
+// 添加医院函数 reqAddHos 参数
+export interface typeAddHosParams {
+  apiUrl: "string",
+  contactsName: "string",
+  contactsPhone: "string",
+  hoscode: "string",
+  hosname: "string"
+}

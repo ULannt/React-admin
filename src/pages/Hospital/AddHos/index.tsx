@@ -1,8 +1,21 @@
-import { Form, Input, Button } from "antd"
+import { useNavigate } from "react-router-dom"
+import { Form, Input, Button, message } from "antd"
+import { reqAddHos } from "@api/Hos"
+import type { typeAddHosParams } from "@api/Hos/model/hosTypes"
 
 export default function HospitalList() {
-  const submitForm = (values: any) => {
-    console.log(values)
+  const navigator = useNavigate()
+  
+  const submitForm = (hosDetail: typeAddHosParams) => {
+    (async () => {
+      try {
+        await reqAddHos(hosDetail)
+        
+        navigator("/syt/hospital/hospitalSet")
+      } catch (error: any) {
+        message.error("123", error.message)
+      }
+    })()
   }
   
   return (
@@ -33,7 +46,9 @@ export default function HospitalList() {
         
         <Form.Item style={{ marginLeft: "530px" }}>
           <Button style={{ margin: "0 10px" }} htmlType="submit" type="primary">保存</Button>
-          <Button style={{ margin: "0 10px" }} htmlType="button">返回</Button>
+          <Button style={{ margin: "0 10px" }} htmlType="button" onClick={() => {
+            navigator("/syt/hospital/hospitalSet")
+          }}>返回</Button>
         </Form.Item>
       </Form>
     </div>

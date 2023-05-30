@@ -105,7 +105,7 @@ export default function HospitalSet() {
       
       <div style={{ margin: "20px 0" }}>
         <Button type="primary" style={{ marginRight: "20px" }} onClick={() => {
-          navigate("/syt/hospital/addHos")
+          navigate("/syt/hospital/AddHos")
         }}>添加</Button>
         <Button type="primary" danger>删除</Button>
       </div>

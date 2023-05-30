@@ -1,5 +1,5 @@
 import { requestHos } from "@utils/http"
-import { typeReqHosInfoParams, typeHosListInfo } from "./model/hosTypes"
+import type { typeReqHosInfoParams, typeHosListInfo, typeAddHosParams } from "./model/hosTypes"
 
 // 请求医院分页列表
 export const reqHosListInfo = ({
@@ -15,4 +15,9 @@ export const reqHosListInfo = ({
       }
     }
   )
+}
+
+// 添加医院
+export const reqAddHos = (hosDetail: typeAddHosParams) => {
+  return requestHos.post(`/admin/hosp/hospitalSet/save`, hosDetail)
 }
