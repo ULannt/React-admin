@@ -7,12 +7,12 @@ export const reqHosListInfo = ({
   limit = 3,
   hosname,
   hoscode
-}: typeReqHosInfoParams) => requestHos.get<any, typeHosListInfo>(
-  `/admin/hosp/hospitalSet/${page}/${limit}`,
-  {
-    params: {
-      hosname,
-      hoscode
+}: typeReqHosInfoParams) => {
+  return requestHos.get<any, typeHosListInfo>(`/admin/hosp/hospitalSet/${page}/${limit}`, {
+      params: {
+        hosname,
+        hoscode
+      }
     }
-  }
-)
+  )
+}

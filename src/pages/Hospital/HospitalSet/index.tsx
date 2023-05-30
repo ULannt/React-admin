@@ -1,14 +1,17 @@
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Form, Input, Button, Table } from "antd"
 import { SearchOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"
-import { useEffect, useState } from "react"
 import { reqHosListInfo } from "@api/Hos"
 import type { typeReqHosInfoParams, typeHosList } from "@api/Hos/model/hosTypes"
 
 export default function HospitalSet() {
+  const navigate = useNavigate()
+  
   // 数据1: 请求医院分页列表函数 reqHosListInfo 的参数
   const [reqParams, setReqParams] = useState<typeReqHosInfoParams>({
     page: 1,
-    limit: 3
+    limit: 9
   })
   
   // 数据2: 医院列表的数据
@@ -70,25 +73,40 @@ export default function HospitalSet() {
     }
   ]
   
+  // 获取表单实例
+  const [form] = Form.useForm()
+  
+  // 搜索按钮
+  const searchForm = (values: { hosname: string, hoscode: string }) => {
+    setReqParams({ ...reqParams, ...values, page: 1 })
+  }
+  
+  // 清空按钮
+  const resetForm = () => {
+    setReqParams({ ...reqParams, page: 1, hosname: "", hoscode: "" })
+  }
+  
   return (
     <div>
-      <Form layout="inline">
-        <Form.Item>
+      <Form layout="inline" form={form} onFinish={searchForm}>
+        <Form.Item name="hosname">
           <Input placeholder="医院名称"/>
         </Form.Item>
-        <Form.Item>
+        <Form.Item name="hoscode">
           <Input placeholder="医院编号"/>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" icon={<SearchOutlined/>}>查询</Button>
+          <Button type="primary" icon={<SearchOutlined/>} htmlType="submit">查询</Button>
         </Form.Item>
         <Form.Item>
-          <Button>清空</Button>
+          <Button htmlType="reset" onClick={resetForm}>清空</Button>
         </Form.Item>
       </Form>
       
       <div style={{ margin: "20px 0" }}>
-        <Button type="primary" style={{ marginRight: "20px" }}>添加</Button>
+        <Button type="primary" style={{ marginRight: "20px" }} onClick={() => {
+          navigate("/syt/hospital/addHos")
+        }}>添加</Button>
         <Button type="primary" danger>删除</Button>
       </div>
       

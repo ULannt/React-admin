@@ -15,6 +15,7 @@ const NotFound = lazy(() => import("@pages/404"))
 const Hospital = lazy(() => import("@pages/Hospital"))
 const HospitalList = lazy(() => import("@pages/Hospital/HospitalList"))
 const HospitalSet = lazy(() => import("@pages/Hospital/HospitalSet"))
+const addHos = lazy(() => import("@pages/Hospital/addHos"))
 
 const load = (Comp: FC) => {
   return (
@@ -72,6 +73,15 @@ const routes: XRoutes = [
             meta: {
               title: "医院列表"
             }
+          },
+          // 添加医院列表, 不在左侧菜单栏展示
+          {
+            path: "/syt/hospital/addHos",
+            element: load(addHos),
+            meta: {
+              title: "添加医院"
+            },
+            hidden: true
           }
         ]
       }
