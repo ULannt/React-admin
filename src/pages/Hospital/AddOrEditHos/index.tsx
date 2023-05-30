@@ -33,12 +33,7 @@ export default function HospitalList() {
   
   return (
     <div>
-      <Form
-        labelCol={{ span: 6 }}
-        wrapperCol={{ span: 12 }}
-        onFinish={submitForm}
-        form={form}
-      >
+      <Form labelCol={{ span: 6 }} wrapperCol={{ span: 12 }} onFinish={submitForm} form={form}>
         <Form.Item name="hosname" label="医院名称" rules={[{ required: true }]}>
           <Input/>
         </Form.Item>
