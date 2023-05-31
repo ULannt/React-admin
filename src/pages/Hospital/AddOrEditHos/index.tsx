@@ -2,8 +2,8 @@ import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Form, Input, Button } from "antd"
 import { useForm } from "antd/es/form/Form"
-import { reqAddHos, reqHosDetailById, reqUpdateHos } from "@api/Hos"
-import type { typeAddOrUpdateHosParams } from "@api/Hos/model/hosTypes"
+import { reqAddHos, reqHosDetailById, reqUpdateHos } from "@api/HosSet"
+import type { typeAddOrUpdateHosParams } from "@api/HosSet/model/hosTypes"
 
 export default function HospitalList() {
   const navigator = useNavigate()

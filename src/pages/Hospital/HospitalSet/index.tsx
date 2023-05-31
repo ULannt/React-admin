@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Form, Input, Button, Table } from "antd"
 import { SearchOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"
-import { reqBacthDelListItemByIdList, reqDelHosListItemById, reqHosListInfo } from "@api/Hos"
-import type { typeReqHosInfoParams, typeHosList, typeHosListItem } from "@api/Hos/model/hosTypes"
+import { reqBacthDelListItemByIdList, reqDelHosListItemById, reqHosListInfo } from "@api/HosSet"
+import type { typeReqHosInfoParams, typeHosList, typeHosListItem } from "@api/HosSet/model/hosTypes"
 
 export default function HospitalSet() {
   const navigate = useNavigate()
@@ -49,10 +49,7 @@ export default function HospitalSet() {
   ]
   
   // 数据1: 请求医院分页列表函数 reqHosListInfo 的参数
-  const [reqParams, setReqParams] = useState<typeReqHosInfoParams>({
-    page: 1,
-    limit: 100
-  })
+  const [reqParams, setReqParams] = useState<typeReqHosInfoParams>({ page: 1, limit: 100 })
   
   // 数据2: 医院列表的数据
   const [hosList, setHosList] = useState<typeHosList>([])
