@@ -3,10 +3,9 @@ import { Form, Select, Input, Button, Table } from "antd"
 import { SearchOutlined } from "@ant-design/icons"
 import { reqCity, reqCounty, reqHosListParams, reqProvince } from "@api/HosList"
 import type { typeCity, typeHosList, typeProvince } from "@api/HosList/model/hosTypes"
-import { useForm } from "antd/es/form/Form"
 
 export default function HospitalList() {
-  const [form] = useForm()
+  const [form] = Form.useForm()
   
   const [reqParams, setReqParams] = useState({ page: 1, limit: 50 })
   
@@ -18,7 +17,7 @@ export default function HospitalList() {
   
   const [cityList, setCityList] = useState<typeCity>([])
   
-  const [countyList, setCountyList] = useState<typeCity>([])
+  const [districtList, setDistrictList] = useState<typeCity>([])
   
   const [loading, setLoading] = useState(false)
   
@@ -44,8 +43,8 @@ export default function HospitalList() {
   }, [])
   
   const provinceFinish = async (value: string) => {
-    setCityList([])
-    // setCountyList([])
+    setDistrictList([])
+    form.setFieldsValue({ cityCode: null, districtCode: null })
     
     const result = await reqCity(value)
     
@@ -53,11 +52,11 @@ export default function HospitalList() {
   }
   
   const cityFinish = async (value: string) => {
-    // setCountyList([])
+    form.setFieldsValue({ districtCode: null })
     
     const result = await reqCounty(value)
     
-    setCountyList(result)
+    setDistrictList(result)
   }
   
   const columns = [
@@ -111,7 +110,7 @@ export default function HospitalList() {
   return (
     <div>
       <Form layout="inline" form={form}>
-        <Form.Item>
+        <Form.Item name="provinceCode">
           <Select style={{ width: "180px" }} placeholder="请选择省" onChange={provinceFinish}>
             {
               provinceList.map(({ name, value, id }) => <Select.Option value={value} key={id}>{name}</Select.Option>)
@@ -119,7 +118,7 @@ export default function HospitalList() {
           </Select>
         </Form.Item>
         
-        <Form.Item>
+        <Form.Item name="cityCode">
           <Select style={{ width: "180px" }} placeholder="请选择市" onChange={cityFinish}>
             {
               cityList.map(({ name, value, id }) => <Select.Option value={value} key={id}>{name}</Select.Option>)
@@ -127,10 +126,10 @@ export default function HospitalList() {
           </Select>
         </Form.Item>
         
-        <Form.Item>
+        <Form.Item name="districtCode">
           <Select style={{ width: "180px" }} placeholder="请选择县">
             {
-              countyList.map(({ name, value, id }) => <Select.Option value={value} key={id}>{name}</Select.Option>)
+              districtList.map(({ name, value, id }) => <Select.Option value={value} key={id}>{name}</Select.Option>)
             }
           </Select>
         </Form.Item>

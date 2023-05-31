@@ -77,15 +77,15 @@ export interface typeHosListInfo {
 
 // 省份每一项
 export interface typeProvinceItem {
-  id: number,
-  createTime: string,
-  updateTime: string,
-  isDeleted: number,
-  param: object,
-  parentId: number,
-  name: string,
-  value: string,
-  dictCode: null,
+  id: number
+  createTime: string
+  updateTime: string
+  isDeleted: number
+  param: object
+  parentId: number
+  name: string
+  value: string
+  dictCode: null
   hasChildren: boolean
 }
 
@@ -94,15 +94,15 @@ export type typeProvince = typeProvinceItem[]
 
 // 城市每一项
 export interface typeCityItem {
-  id: number,
-  createTime: string,
-  updateTime: string,
-  isDeleted: number,
-  param: object,
-  parentId: number,
-  name: string,
-  value: string,
-  dictCode: null,
+  id: number
+  createTime: string
+  updateTime: string
+  isDeleted: number
+  param: object
+  parentId: number
+  name: string
+  value: string
+  dictCode: null
   hasChildren: boolean
 }
 
@@ -111,15 +111,15 @@ export type typeCity = typeCityItem[]
 
 // 县的每一项
 export interface typeCountyItem {
-  id: number,
-  createTime: string,
-  updateTime: string,
-  isDeleted: number,
-  param: object,
-  parentId: number,
-  name: string,
-  value: string,
-  dictCode: null,
+  id: number
+  createTime: string
+  updateTime: string
+  isDeleted: number
+  param: object
+  parentId: number
+  name: string
+  value: string
+  dictCode: null
   hasChildren: boolean
 }
 
