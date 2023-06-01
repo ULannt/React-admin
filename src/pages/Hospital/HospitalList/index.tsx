@@ -1,13 +1,25 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Form, Select, Input, Button, Table } from "antd"
 import { SearchOutlined } from "@ant-design/icons"
-import { reqCity, reqCounty, reqHosListParams, reqProvince } from "@api/HosList"
-import type { typeCity, typeHosList, typeProvince } from "@api/HosList/model/hosTypes"
+import { reqProvince, reqCity, reqDistrict, reqHosListParams, reqHosType, reqCheckStatus } from "@api/HosList"
+import type {
+  typeCity,
+  typeHosList,
+  typeProvince,
+  typeHosType,
+  typeHosListParams,
+  typrHosListItem
+} from "@api/HosList/model/hosTypes"
 
 export default function HospitalList() {
+  const navigate = useNavigate()
+  
   const [form] = Form.useForm()
   
   const [reqParams, setReqParams] = useState({ page: 1, limit: 50 })
+  
+  const [hosListParams, setHosListParams] = useState<typeHosListParams>({})
   
   const [hosList, setHosList] = useState<typeHosList>([])
   
@@ -19,26 +31,33 @@ export default function HospitalList() {
   
   const [districtList, setDistrictList] = useState<typeCity>([])
   
+  const [hosTypeList, setHosTypeList] = useState<typeHosType>([])
+  
   const [loading, setLoading] = useState(false)
   
+  // 请求列表数据
+  const getHosListInfo = async () => {
+    setLoading(true)
+    
+    const result = await reqHosListParams(reqParams.page, reqParams.limit, hosListParams)
+    
+    setHosList(result.content)
+    setTotal(result.totalElements)
+    
+    setLoading(false)
+  }
+  
   useEffect(() => {
-    (async () => {
-      setLoading(true)
-      
-      const result = await reqHosListParams(reqParams.page, reqParams.limit)
-      
-      setHosList(result.content)
-      setTotal(result.totalElements)
-      
-      setLoading(false)
-    })()
-  }, [reqParams])
+    getHosListInfo()
+  }, [reqParams, hosListParams])
   
   useEffect(() => {
     (async () => {
-      const result = await reqProvince()
+      const province = await reqProvince()
+      setProvinceList(province)
       
-      setProvinceList(result)
+      const hosType = await reqHosType()
+      setHosTypeList(hosType)
     })()
   }, [])
   
@@ -54,9 +73,30 @@ export default function HospitalList() {
   const cityFinish = async (value: string) => {
     form.setFieldsValue({ districtCode: null })
     
-    const result = await reqCounty(value)
+    const result = await reqDistrict(value)
     
     setDistrictList(result)
+  }
+  
+  const search = (hosListParams: typeHosListParams) => {
+    setHosListParams(hosListParams)
+    
+    setReqParams({ ...reqParams, page: 1 })
+  }
+  
+  const clear = () => {
+    form.resetFields()
+    
+    setHosListParams({})
+    setReqParams({ ...reqParams, page: 1 })
+  }
+  
+  const checkStatus = (hosListItem: typrHosListItem) => {
+    return async () => {
+      await reqCheckStatus(hosListItem.id, hosListItem.status ? 0 : 1)
+      
+      setReqParams({ ...reqParams })
+    }
   }
   
   const columns = [
@@ -95,12 +135,14 @@ export default function HospitalList() {
     },
     {
       title: "操作",
-      render() {
+      render(hosListItem: typrHosListItem) {
         return (
           <div>
-            <Button type="primary" style={{ marginRight: "15px" }}>查看</Button>
+            <Button type="primary" style={{ marginRight: "15px" }} onClick={() => {
+              navigate(`/syt/hospital/hosInfo/${hosListItem.id}`)
+            }}>查看</Button>
             <Button type="primary" style={{ marginRight: "15px" }}>排班</Button>
-            <Button>上线</Button>
+            <Button onClick={checkStatus(hosListItem)}>{hosListItem.status ? "下线" : "上线"}</Button>
           </div>
         )
       }
@@ -109,7 +151,7 @@ export default function HospitalList() {
   
   return (
     <div>
-      <Form layout="inline" form={form}>
+      <Form layout="inline" form={form} style={{ height: "80px", lineHeight: "80px" }} onFinish={search}>
         <Form.Item name="provinceCode">
           <Select style={{ width: "180px" }} placeholder="请选择省" onChange={provinceFinish}>
             {
@@ -134,16 +176,35 @@ export default function HospitalList() {
           </Select>
         </Form.Item>
         
-        <Form.Item>
+        <Form.Item name="hosname">
           <Input placeholder="医院名称"/>
         </Form.Item>
         
-        <Form.Item>
-          <Button type="primary" icon={<SearchOutlined/>}>查询</Button>
+        <Form.Item name="hoscode">
+          <Input placeholder="医院编号"/>
+        </Form.Item>
+        
+        <Form.Item name="hostype">
+          <Select style={{ width: "180px" }} placeholder="医院类型">
+            {
+              hosTypeList.map(({ name, value, id }) => <Select.Option value={value} key={id}>{name}</Select.Option>)
+            }
+          </Select>
+        </Form.Item>
+        
+        <Form.Item name="status">
+          <Select style={{ width: "180px" }} placeholder="医院状态">
+            <Select.Option value={0}>未上线</Select.Option>
+            <Select.Option value={1}>已上线</Select.Option>
+          </Select>
         </Form.Item>
         
         <Form.Item>
-          <Button>清空</Button>
+          <Button type="primary" htmlType="submit" icon={<SearchOutlined/>}>查询</Button>
+        </Form.Item>
+        
+        <Form.Item>
+          <Button onClick={clear}>清空</Button>
         </Form.Item>
       </Form>
       

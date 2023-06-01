@@ -125,3 +125,58 @@ export interface typeCountyItem {
 
 // 县
 export type typeCounty = typeCountyItem[]
+
+// 医院类型每一项
+export interface typeHosTypeItem {
+  id: number
+  createTime: string
+  updateTime: string
+  isDeleted: number
+  param: object
+  parentId: number
+  name: string
+  value: string
+  dictCode: null
+  hasChildren: boolean
+}
+
+// 医院类型
+export type typeHosType = typeHosTypeItem[]
+
+export interface typeHosInfoHos {
+  id?: string
+  createTime?: string
+  updateTime?: string
+  isDeleted?: number
+  param: {
+    hostypeString?: string
+    fullAddress?: string
+  }
+  hoscode?: string
+  hosname?: string
+  hostype?: string
+  provinceCode?: string
+  cityCode?: string
+  districtCode?: string
+  address?: string
+  logoData?: string
+  intro?: string
+  route?: string
+  status?: number
+  bookingRule?: null
+}
+
+export interface typeHosInfoBooking {
+  cycle?: number
+  releaseTime?: string
+  stopTime?: string
+  quitDay?: number
+  quitTime?: string
+  rule: string[]
+}
+
+// 医院详细信息
+export type typeHosInfo = {
+  hospital: typeHosInfoHos
+  bookingRule: typeHosInfoBooking
+}

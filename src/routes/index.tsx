@@ -16,14 +16,15 @@ const Hospital = lazy(() => import("@pages/Hospital"))
 const HospitalList = lazy(() => import("@pages/Hospital/HospitalList"))
 const HospitalSet = lazy(() => import("@pages/Hospital/HospitalSet"))
 const AddOrEditHos = lazy(() => import("@pages/Hospital/AddOrEditHos"))
+const HosInfo = lazy(() => import("@pages/Hospital/HosInfo"))
 
 const load = (Comp: FC) => {
   return (
     // 因为路由懒加载，组件需要一段网络请求时间才能加载并渲染
     // 在组件还未渲染时，fallback就生效，来渲染一个加载进度条效果
     // 当组件渲染完成时，fallback就失效了
-    <Suspense fallback={<Loading/>}>
-      {/* 所有lazy的组件必须包裹Suspense组件，才能实现功能 */}
+    <Suspense fallback={ <Loading/> }>
+      {/* 所有lazy的组件必须包裹Suspense组件，才能实现功能 */ }
       <Comp/>
     </Suspense>
   )
@@ -89,6 +90,14 @@ const routes: XRoutes = [
             element: load(AddOrEditHos),
             meta: {
               title: "编辑医院"
+            },
+            hidden: true
+          },
+          {
+            path: "/syt/hospital/hosInfo/:id",
+            element: load(HosInfo),
+            meta: {
+              title: "医院详情"
             },
             hidden: true
           }
