@@ -2,7 +2,7 @@ import axios from "axios"
 import { message } from "antd"
 import { store } from "@/app/store"
 
-// 创建一个新的axios，就是返回值request
+// 创建一个新的 axios，就是返回值request
 // request的用法和axios用法基本一致
 const requestAddress = axios.create({
   // 公共配置，将来发送请求会自动添加
@@ -21,12 +21,12 @@ requestAddress.interceptors.request.use(config => {
   // 不是组件，不能使用hooks函数读取
   // 使用最原始读取redux数据的方法
   const token = store.getState().user.token
-  
+
   if (token) {
     // 携带token参数
-    (config.headers as any).token = token
+    ;(config.headers as any).token = token
   }
-  
+
   return config
 })
 

@@ -89,7 +89,7 @@ export interface typeProvinceItem {
   hasChildren: boolean
 }
 
-// 省份
+// 省
 export type typeProvince = typeProvinceItem[]
 
 // 城市每一项

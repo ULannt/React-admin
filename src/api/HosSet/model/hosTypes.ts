@@ -24,7 +24,7 @@ export interface typeHosListItem {
 // 医院列表的类型 [{ id, hosname, hoscode ... }, {}, {} ...]
 export type typeHosList = typeHosListItem[]
 
-// 医院所有信息(包括医院列表)
+// 医院所有信息 (包括医院列表)
 export interface typeHosListInfo {
   records: typeHosList,
   total: number,

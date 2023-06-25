@@ -52,7 +52,7 @@ export default function HospitalList() {
   }, [reqParams, hosListParams])
   
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const province = await reqProvince()
       setProvinceList(province)
       

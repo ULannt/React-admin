@@ -45,7 +45,5 @@ export const reqDelHosListItemById = (id: number) => {
 
 // 请求6: 根据 idList, 批量删除医院列表项
 export const reqBacthDelListItemByIdList = (idList: React.Key[]) => {
-  return requestHos.delete<any, null>(`/admin/hosp/hospitalSet/batchRemove`, {
-    data: idList
-  })
+  return requestHos.delete<any, null>(`/admin/hosp/hospitalSet/batchRemove`, { data: idList })
 }

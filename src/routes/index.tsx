@@ -23,9 +23,9 @@ const load = (Comp: FC) => {
     // 因为路由懒加载，组件需要一段网络请求时间才能加载并渲染
     // 在组件还未渲染时，fallback就生效，来渲染一个加载进度条效果
     // 当组件渲染完成时，fallback就失效了
-    <Suspense fallback={ <Loading/> }>
-      {/* 所有lazy的组件必须包裹Suspense组件，才能实现功能 */ }
-      <Comp/>
+    <Suspense fallback={<Loading />}>
+      {/* 所有lazy的组件必须包裹Suspense组件，才能实现功能 */}
+      <Comp />
     </Suspense>
   )
 }
@@ -33,7 +33,7 @@ const load = (Comp: FC) => {
 const routes: XRoutes = [
   {
     path: "/",
-    element: <EmptyLayout/>,
+    element: <EmptyLayout />,
     children: [
       {
         path: "login",
@@ -43,12 +43,12 @@ const routes: XRoutes = [
   },
   {
     path: "/syt",
-    element: <Layout/>,
+    element: <Layout />,
     children: [
       {
         path: "/syt/dashboard",
         meta: {
-          icon: <HomeOutlined/>,
+          icon: <HomeOutlined />,
           title: <Translation>route:dashboard</Translation>
         },
         element: load(Dashboard)
@@ -56,7 +56,7 @@ const routes: XRoutes = [
       {
         path: "/syt/hospital",
         meta: {
-          icon: <TeamOutlined/>,
+          icon: <TeamOutlined />,
           title: "医院管理"
         },
         element: load(Hospital),
@@ -111,7 +111,7 @@ const routes: XRoutes = [
   },
   {
     path: "*",
-    element: <Navigate to="/404"/>
+    element: <Navigate to="/404" />
   }
 ]
 
@@ -124,7 +124,7 @@ export const RenderRoutes = () => {
 
 // 找到要渲染成左侧菜单的路由
 export const findSideBarRoutes = () => {
-  const currentIndex = routes.findIndex((route) => route.path === "/syt")
+  const currentIndex = routes.findIndex(route => route.path === "/syt")
   return routes[currentIndex].children as XRoutes
 }
 

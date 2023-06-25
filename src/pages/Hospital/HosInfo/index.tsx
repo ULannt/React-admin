@@ -20,7 +20,7 @@ export default function HosInfo() {
   })
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const result = await reqHosInfo(id as string)
 
       const { hospital, bookingRule } = result

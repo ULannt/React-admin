@@ -10,9 +10,7 @@ import type {
 } from "./model/hosTypes"
 
 export const reqHosListParams = (page: number, limit: number, params: typeHosListParams) => {
-  return requestHos.get<any, typeHosListInfo>(`/admin/hosp/hospital/${page}/${limit}`, {
-    params
-  })
+  return requestHos.get<any, typeHosListInfo>(`/admin/hosp/hospital/${page}/${limit}`, { params })
 }
 
 export const reqProvince = () => {
